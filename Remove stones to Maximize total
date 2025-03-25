@@ -1,0 +1,29 @@
+
+class Solution {
+    public int maxStoneSum(int[] piles, int k) {
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+
+        int totalSum = 0;
+        for (int pile : piles) {
+            maxHeap.add(pile);
+            totalSum += pile;
+        }
+
+        for (int i = 0; i < k; i++) {
+            int largest = maxHeap.poll(); 
+            int removeStones = largest / 2; 
+            totalSum -= removeStones; 
+            maxHeap.add(largest - removeStones); 
+        }
+
+        return totalSum; 
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] piles = {5, 4, 9};
+        int k = 2;
+        
+        System.out.println("Remaining Stones: " + sol.maxStoneSum(piles, k)); 
+    }
+}
